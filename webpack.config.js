@@ -3,9 +3,13 @@ const path = require('path');
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, '/public'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
   devtool:'source-map',
-  watch: true,
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    compress: true,
+    watchContentBase: true,
+  }
 };
