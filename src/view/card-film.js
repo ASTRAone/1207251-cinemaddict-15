@@ -1,8 +1,5 @@
 export const renderCardFilm = () => (
-  `<section class="films-list films-list--extra">
-      <h2 class="films-list__title">Top rated</h2>
-        <div class="films-list__container">
-            <article class="film-card">
+  `         <article class="film-card">
                 <h3 class="film-card__title">The Dance of Life</h3>
                 <p class="film-card__rating">8.3</p>
                 <p class="film-card__info">
@@ -19,6 +16,5 @@ export const renderCardFilm = () => (
                     <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
                 </div>
             </article>
-        </div>
-    </section>`
+        `
 );

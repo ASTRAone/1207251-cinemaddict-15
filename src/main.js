@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { renderShowMoreButton } from './view/show-more-button';
 import { renderSortCinema } from './view/sort';
 import { renderRatingUser } from './view/rating-user';
-import { renderCardFilm } from './view/card-film';
+import { renderContainerCard } from './view/container-card';
 import { renderFilmDetails } from './view/film-details';
 import { renderMenu } from './view/menu';
 
@@ -15,6 +16,6 @@ render(ratingUser, renderRatingUser(), 'beforeend');
 const main = document.querySelector('.main');
 render(main, renderMenu(), 'beforeend');
 render(main, renderSortCinema(), 'beforeend');
-render(main, renderCardFilm(), 'beforeend');
-render(main, renderCardFilm(), 'beforeend');
-render(main, renderShowMoreButton(), 'beforeend');
+
+render(main, renderContainerCard([{name: 'male', name2: 'maaaaa'}, {name: 'male', name2: 'maaaaa'}]), 'beforeend');
+// render(main, renderFilmDetails(), 'beforeend');
