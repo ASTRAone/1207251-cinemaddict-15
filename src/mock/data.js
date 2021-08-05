@@ -1,6 +1,6 @@
 import { renderComments, getRandomInteger, transformTime, formatDate } from './task';
 
-export const renderData = () => {
+export const generateData = () => {
   const arrData = [];
 
   for (let i = 0; i < 20; i++) {

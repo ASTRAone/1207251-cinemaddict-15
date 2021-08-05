@@ -1,5 +1,4 @@
-
-const renderMoviesCard = ({ filmInfo, comments }) =>
+const renderMoviesCard = ({ comments, filmInfo }) =>
   `<article class="film-card">
         <h3 class="film-card__title">${filmInfo.title}</h3>
         <p class="film-card__rating">${filmInfo.totalRating}</p>
@@ -18,9 +17,10 @@ const renderMoviesCard = ({ filmInfo, comments }) =>
         </div>
     </article>`;
 
-const renderCards = (cards = []) => cards.map(renderMoviesCard).join('');
+const renderCards = (cards = []) =>
+  cards.map((item) => renderMoviesCard({ ...item })).join('');
 
-const allMovies = (cards) =>
+const renderAllMovies = (cards) =>
   `<section class="films-list">
         <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
         <div class="films-list__container">
@@ -29,7 +29,7 @@ const allMovies = (cards) =>
         <button class="films-list__show-more">Show more</button>
     </section>`;
 
-const extraMovies = (cards, title) =>
+const renderExtraMovies = (cards, title) =>
   `<section class="films-list films-list--extra">
         <h2 class="films-list__title">${title}</h2>
         <div class="films-list__container">
@@ -39,7 +39,7 @@ const extraMovies = (cards, title) =>
 
 export const renderContainerCard = (cards = []) =>
   `<section class="films">
-        ${allMovies(cards)}
-        ${extraMovies(cards.slice(0, 2), 'Top rated')}
-        ${extraMovies(cards.slice(0, 2), 'Most comment')}
+        ${renderAllMovies(cards)}
+        ${renderExtraMovies(cards.slice(0, 2), 'Top rated')}
+        ${renderExtraMovies(cards.slice(0, 2), 'Most comment')}
     </section>`;

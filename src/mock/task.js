@@ -15,7 +15,7 @@ export const getRandomInteger = (min, max) => {
 };
 
 // Генерирование рандомного текста, рандомной длинны
-const renderText = (min, max, arr) => {
+const renderText = (min, max, arr = []) => {
   const len = getRandomInteger(min, max);
   const setText = [];
 

@@ -3,23 +3,27 @@
 import { renderSortCinema } from './view/sort';
 import { renderRatingUser } from './view/rating-user';
 import { renderContainerCard } from './view/container-card';
-// import { renderFilmDetails } from './view/film-details';
+import { renderFilmDetails } from './view/film-details';
 import { renderMenu } from './view/menu';
-import {renderData} from './mock/data';
+import {generateData} from './mock/data';
 
-console.log(renderData());
+console.log(generateData());
 
-const render = (container, template, position) => {
+const body = document.body;
+const data = generateData();
+const [first] = data;
+console.log(first);
+
+
+const render = (container, template, position = 'beforeend') => {
   container.insertAdjacentHTML(position, template);
 };
 
-// const body = document.body;
 const ratingUser = document.querySelector('.header');
-render(ratingUser, renderRatingUser(), 'beforeend');
+render(ratingUser, renderRatingUser());
 
 const main = document.querySelector('.main');
-render(main, renderMenu(), 'beforeend');
-render(main, renderSortCinema(), 'beforeend');
-// render(body, renderFilmDetails(), 'beforeend');
-
-render(main, renderContainerCard(renderData()), 'beforeend');
+render(main, renderMenu());
+render(main, renderSortCinema());
+render(main, renderContainerCard(data));
+render(body, renderFilmDetails({...first}));
