@@ -1,3 +1,5 @@
+import {createElement} from '../utils';
+
 // Genre
 const getGenre = (item) =>
   `<span class="film-details__genre">${item}</span>`;
@@ -5,7 +7,7 @@ const getGenre = (item) =>
 // Рендеринг span Genre
 const renderGenres = (arr) => arr.map(getGenre);
 
-export const renderFilmDetails = ({ filmInfo }) => {
+const renderFilmDetails = ({ filmInfo }) => {
   const { poster, ageRating, title, director, alternativeTitle,
     writers, actors, release, runtime, genre, description, totalRating } = filmInfo;
   return `<section class="film-details">
@@ -120,3 +122,28 @@ export const renderFilmDetails = ({ filmInfo }) => {
   </form>
 </section>`;
 };
+
+class FilmDetails {
+  constructor(data) {
+    this.data = data;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return renderFilmDetails(this.data);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default FilmDetails;
