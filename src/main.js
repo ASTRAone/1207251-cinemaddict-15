@@ -32,10 +32,12 @@ const renderFilm = (container, element) => {
   postet.addEventListener('click', () => {
     filmDetails = new FilmDetails(element);
     render(body, filmDetails.getElement());
+    body.classList.add('hide-overflow');
 
     filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
       if (filmDetails !== null && body.contains(filmDetails.getElement())) {
         body.removeChild(filmDetails.getElement());
+        body.classList.remove('hide-overflow');
       }
     });
   });
@@ -43,10 +45,12 @@ const renderFilm = (container, element) => {
   title.addEventListener('click', () => {
     filmDetails = new FilmDetails(element);
     render(body, filmDetails.getElement());
+    body.classList.add('hide-overflow');
 
     filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
       if (filmDetails !== null && body.contains(filmDetails.getElement())) {
         body.removeChild(filmDetails.getElement());
+        body.classList.remove('hide-overflow');
       }
     });
   });
@@ -54,10 +58,12 @@ const renderFilm = (container, element) => {
   comments.addEventListener('click', () => {
     filmDetails = new FilmDetails(element);
     render(body, filmDetails.getElement());
+    body.classList.add('hide-overflow');
 
     filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
       if (filmDetails !== null && body.contains(filmDetails.getElement())) {
         body.removeChild(filmDetails.getElement());
+        body.classList.remove('hide-overflow');
       }
     });
   });
