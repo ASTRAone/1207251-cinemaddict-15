@@ -1,3 +1,5 @@
+import {createElement} from '../utils';
+
 export const renderMenu = () => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
@@ -55,3 +57,27 @@ export const renderMenu = () => (
     </div>
   </section>`
 );
+
+class Menu {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return renderMenu();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default Menu;

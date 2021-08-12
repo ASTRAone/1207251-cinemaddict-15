@@ -1,4 +1,4 @@
-// TODO: доделать
+import {createElement} from '../utils';
 
 // Genre
 const getGenre = (item) =>
@@ -7,8 +7,10 @@ const getGenre = (item) =>
 // Рендеринг span Genre
 const renderGenres = (arr) => arr.map(getGenre);
 
-export const renderFilmDetails = ({ filmInfo }) =>
-  `<section class="film-details">
+const renderFilmDetails = ({ filmInfo }) => {
+  const { poster, ageRating, title, director, alternativeTitle,
+    writers, actors, release, runtime, genre, description, totalRating } = filmInfo;
+  return `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
       <div class="film-details__close">
@@ -16,57 +18,57 @@ export const renderFilmDetails = ({ filmInfo }) =>
       </div>
       <div class="film-details__info-wrap">
         <div class="film-details__poster">
-          <img class="film-details__poster-img" src=${filmInfo.poster} alt="">
+          <img class="film-details__poster-img" src=${poster} alt="">
 
-          <p class="film-details__age">${filmInfo.ageRating}+</p>
+          <p class="film-details__age">${ageRating}+</p>
         </div>
 
         <div class="film-details__info">
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
-              <h3 class="film-details__title">${filmInfo.title}</h3>
-              <p class="film-details__title-original">Original: ${filmInfo.alternativeTitle}</p>
+              <h3 class="film-details__title">${title}</h3>
+              <p class="film-details__title-original">Original: ${alternativeTitle}</p>
             </div>
             <div class="film-details__rating">
-              <p class="film-details__total-rating">${filmInfo.totalRating}</p>
+              <p class="film-details__total-rating">${totalRating}</p>
             </div>
           </div>
 
           <table class="film-details__table">
             <tr class="film-details__row">
               <td class="film-details__term">Director</td>
-              <td class="film-details__cell">${filmInfo.director}</td>
+              <td class="film-details__cell">${director}</td>
             </tr>
             
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
-              <td class="film-details__cell">${filmInfo.writers}</td>
+              <td class="film-details__cell">${writers}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Actors</td>
-              <td class="film-details__cell">${filmInfo.actors}</td>
+              <td class="film-details__cell">${actors}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
-              <td class="film-details__cell">${filmInfo.release.date}</td>
+              <td class="film-details__cell">${release.date}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
-              <td class="film-details__cell">${filmInfo.runtime}</td>
+              <td class="film-details__cell">${runtime}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Country</td>
-              <td class="film-details__cell">${filmInfo.release.releaseCountry}</td>
+              <td class="film-details__cell">${release.releaseCountry}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                ${renderGenres([filmInfo.genre])}
+                ${renderGenres([genre])}
             </tr>
           </table>
 
           <p class="film-details__film-description">
-            ${filmInfo.description}
+            ${description}
           </p>
         </div>
       </div>
@@ -119,4 +121,29 @@ export const renderFilmDetails = ({ filmInfo }) =>
     </div>
   </form>
 </section>`;
+};
 
+class FilmDetails {
+  constructor(data) {
+    this.data = data;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return renderFilmDetails(this.data);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default FilmDetails;
