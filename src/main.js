@@ -25,11 +25,11 @@ render(main, new SortCinema().getElement());
 const renderFilm = (container, element) => {
   const card = new FilmCard(element);
   const listContainer = container.querySelector('.films-list__container');
-  const postet = card.getElement().querySelector('.film-card__poster');
+  const poster = card.getElement().querySelector('.film-card__poster');
   const title = card.getElement().querySelector('.film-card__title');
   const comments = card.getElement().querySelector('.film-card__comments');
 
-  postet.addEventListener('click', () => {
+  poster.addEventListener('click', () => {
     filmDetails = new FilmDetails(element);
     render(body, filmDetails.getElement());
     body.classList.add('hide-overflow');
