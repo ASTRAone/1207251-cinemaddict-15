@@ -2,7 +2,10 @@
 // import { renderShowMoreButton } from './view/show-more-button';
 import SortCinema from './view/sort.js';
 import RatingUser from './view/rating-user.js';
-import ContainerCard from './view/container-card.js';
+// import ContainerCard from './view/container-card.js';
+import Films from './view/films.js';
+import FilmsList from './view/films-list.js';
+import FilmCard from './view/card-film.js';
 import FilmDetails  from './view/film-details.js';
 import Menu  from './view/menu.js';
 import {generateData} from './mock/data';
@@ -10,30 +13,70 @@ import {render} from './utils';
 
 const body = document.body;
 const data = generateData();
-const [first] = data;
+let filmDetails = null;
 
 const ratingUserContainer = document.querySelector('.header');
 const main = document.querySelector('.main');
 
-const menu = new Menu();
-const sortCinema = new SortCinema();
-const containerCard = new ContainerCard(data);
-const filmDetails = new FilmDetails(first);
-
-// Не знал, куда навешивать событие(на какой элемент)
-containerCard.getElement().querySelectorAll('.film-card img').forEach((elem) => {
-  elem.addEventListener('click', () => {
-    render(body, filmDetails.getElement());
-  });
-});
-
-filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
-  if (body.contains(filmDetails.getElement())) {
-    body.removeChild(filmDetails.getElement());
-  }
-});
-
 render(ratingUserContainer, new RatingUser().getElement());
-render(main, menu.getElement());
-render(main, sortCinema.getElement());
-render(main, containerCard.getElement(data));
+render(main, new Menu().getElement());
+render(main, new SortCinema().getElement());
+
+const renderFilm = (container, element) => {
+  const card = new FilmCard(element);
+  const listContainer = container.querySelector('.films-list__container');
+  const postet = card.getElement().querySelector('.film-card__poster');
+  const title = card.getElement().querySelector('.film-card__title');
+  const comments = card.getElement().querySelector('.film-card__comments');
+
+  postet.addEventListener('click', () => {
+    filmDetails = new FilmDetails(element);
+    render(body, filmDetails.getElement());
+
+    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
+        body.removeChild(filmDetails.getElement());
+      }
+    });
+  });
+
+  title.addEventListener('click', () => {
+    filmDetails = new FilmDetails(element);
+    render(body, filmDetails.getElement());
+
+    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
+        body.removeChild(filmDetails.getElement());
+      }
+    });
+  });
+
+  comments.addEventListener('click', () => {
+    filmDetails = new FilmDetails(element);
+    render(body, filmDetails.getElement());
+
+    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
+        body.removeChild(filmDetails.getElement());
+      }
+    });
+  });
+
+  render(listContainer, card.getElement());
+};
+
+const films = new Films();
+const filmsListElement = new FilmsList('All movies. Upcoming', false).getElement();
+const filmsListTopRated = new FilmsList('Top rated', true).getElement();
+const filmsListMostComment = new FilmsList('Most comment', true).getElement();
+
+const renderFilms = (container, filmsItems) => {
+  filmsItems.forEach((element) => renderFilm(container, element));
+  render(films.getElement(), container);
+};
+
+renderFilms(filmsListElement, data);
+renderFilms(filmsListTopRated, data.slice(0, 2));
+renderFilms(filmsListMostComment, data.slice(0, 2));
+
+render(main, films.getElement());
