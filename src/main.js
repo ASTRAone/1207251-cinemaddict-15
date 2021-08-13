@@ -2,12 +2,12 @@
 // import { renderShowMoreButton } from './view/show-more-button';
 import SortCinema from './view/sort.js';
 import RatingUser from './view/rating-user.js';
-// import ContainerCard from './view/container-card.js';
 import Films from './view/films.js';
 import FilmsList from './view/films-list.js';
 import FilmCard from './view/card-film.js';
 import FilmDetails  from './view/film-details.js';
 import Menu  from './view/menu.js';
+import ListEmpty from './view/list-empty.js';
 import {generateData} from './mock/data';
 import {render} from './utils';
 
@@ -22,6 +22,13 @@ render(ratingUserContainer, new RatingUser().getElement());
 render(main, new Menu().getElement());
 render(main, new SortCinema().getElement());
 
+body.addEventListener('keydown', (e) => {
+  if (filmDetails !== null && e.key === 'Escape') {
+    body.removeChild(filmDetails.getElement());
+    body.classList.remove('hide-overflow');
+  }
+});
+
 const renderFilm = (container, element) => {
   const card = new FilmCard(element);
   const listContainer = container.querySelector('.films-list__container');
@@ -29,43 +36,19 @@ const renderFilm = (container, element) => {
   const title = card.getElement().querySelector('.film-card__title');
   const comments = card.getElement().querySelector('.film-card__comments');
 
-  poster.addEventListener('click', () => {
-    filmDetails = new FilmDetails(element);
-    render(body, filmDetails.getElement());
-    body.classList.add('hide-overflow');
+  card.getElement().addEventListener('click', (e) => {
+    if (e.target.contains(poster) || e.target.contains(title) || e.target.contains(comments)) {
+      filmDetails = new FilmDetails(element);
+      render(body, filmDetails.getElement());
+      body.classList.add('hide-overflow');
 
-    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
-      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
-        body.removeChild(filmDetails.getElement());
-        body.classList.remove('hide-overflow');
-      }
-    });
-  });
-
-  title.addEventListener('click', () => {
-    filmDetails = new FilmDetails(element);
-    render(body, filmDetails.getElement());
-    body.classList.add('hide-overflow');
-
-    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
-      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
-        body.removeChild(filmDetails.getElement());
-        body.classList.remove('hide-overflow');
-      }
-    });
-  });
-
-  comments.addEventListener('click', () => {
-    filmDetails = new FilmDetails(element);
-    render(body, filmDetails.getElement());
-    body.classList.add('hide-overflow');
-
-    filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
-      if (filmDetails !== null && body.contains(filmDetails.getElement())) {
-        body.removeChild(filmDetails.getElement());
-        body.classList.remove('hide-overflow');
-      }
-    });
+      filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+        if (filmDetails !== null && body.contains(filmDetails.getElement())) {
+          body.removeChild(filmDetails.getElement());
+          body.classList.remove('hide-overflow');
+        }
+      });
+    }
   });
 
   render(listContainer, card.getElement());
@@ -77,12 +60,21 @@ const filmsListTopRated = new FilmsList('Top rated', true).getElement();
 const filmsListMostComment = new FilmsList('Most comment', true).getElement();
 
 const renderFilms = (container, filmsItems) => {
-  filmsItems.forEach((element) => renderFilm(container, element));
-  render(films.getElement(), container);
+  if (filmsItems.length > 0) {
+    filmsItems.forEach((element) => renderFilm(container, element));
+    render(films.getElement(), container);
+  }
 };
 
 renderFilms(filmsListElement, data);
 renderFilms(filmsListTopRated, data.slice(0, 2));
 renderFilms(filmsListMostComment, data.slice(0, 2));
 
-render(main, films.getElement());
+if (data.length === 0 || !Array.isArray(data)) {
+  const listEmpty = new ListEmpty('There are no movies in our database');
+  render(films.getElement(), listEmpty.getElement());
+} else {
+  render(main, films.getElement());
+}
+
+
