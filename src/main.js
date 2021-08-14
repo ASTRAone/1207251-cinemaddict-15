@@ -72,9 +72,9 @@ renderFilms(filmsListMostComment, data.slice(0, 2));
 
 if (data.length === 0 || !Array.isArray(data)) {
   const listEmpty = new ListEmpty('There are no movies in our database');
+
   render(films.getElement(), listEmpty.getElement());
+  render(main, films.getElement());
 } else {
   render(main, films.getElement());
 }
-
-
