@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 const renderRatingUser = () => (
   `<section class="header__profile profile">
@@ -7,25 +7,15 @@ const renderRatingUser = () => (
     </section>`
 );
 
-class RatingUser {
+class RatingUser extends Abstract {
   constructor() {
+    super();
+
     this._element = null;
   }
 
   getTemplate() {
     return renderRatingUser();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

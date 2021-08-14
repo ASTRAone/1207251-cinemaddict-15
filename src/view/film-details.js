@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 // Genre
 const getGenre = (item) =>
@@ -123,26 +123,16 @@ const renderFilmDetails = ({ filmInfo }) => {
 </section>`;
 };
 
-class FilmDetails {
+class FilmDetails extends Abstract {
   constructor(data) {
+    super();
+
     this.data = data;
     this._element = null;
   }
 
   getTemplate() {
     return renderFilmDetails(this.data);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

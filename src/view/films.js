@@ -1,27 +1,17 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 const renderFilms = () => '<section class="films"></section>';
 
-class Films {
+class Films extends Abstract {
   constructor(data) {
+    super();
+
     this._element = null;
     this.data = data;
   }
 
   getTemplate() {
     return renderFilms(this.data);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

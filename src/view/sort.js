@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 const renderSortCinema = () => (
   `<ul class="sort">
@@ -8,25 +8,15 @@ const renderSortCinema = () => (
     </ul>`
 );
 
-class SortCinema {
+class SortCinema extends Abstract {
   constructor() {
+    super();
+
     this._element = null;
   }
 
   getTemplate() {
     return renderSortCinema();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

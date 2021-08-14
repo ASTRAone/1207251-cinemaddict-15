@@ -76,5 +76,3 @@ if (data.length === 0 || !Array.isArray(data)) {
 } else {
   render(main, films.getElement());
 }
-
-

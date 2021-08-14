@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 const renderFilmsList = (title, isExtra) =>
   `<section class="films-list ${isExtra ? 'films-list--extra' : ''}">
@@ -8,8 +8,10 @@ const renderFilmsList = (title, isExtra) =>
         ${!isExtra ? '<button class="films-list__show-more">Show more</button>' : ''}
     </section>`;
 
-class FilmsList {
+class FilmsList extends Abstract {
   constructor(title, isExtra = false) {
+    super();
+
     this._element = null;
     this.title = title;
     this.isExtra = isExtra;
@@ -17,18 +19,6 @@ class FilmsList {
 
   getTemplate() {
     return renderFilmsList(this.title, this.isExtra);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

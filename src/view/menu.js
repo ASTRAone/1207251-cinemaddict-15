@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import Abstract from './abstract.js';
 
 export const renderMenu = () => (
   `<nav class="main-navigation">
@@ -58,25 +58,15 @@ export const renderMenu = () => (
   </section>`
 );
 
-class Menu {
+class Menu extends Abstract {
   constructor() {
+    super();
+
     this._element = null;
   }
 
   getTemplate() {
     return renderMenu();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
