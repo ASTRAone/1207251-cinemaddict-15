@@ -42,7 +42,7 @@ const renderFilm = (container, element) => {
       render(body, filmDetails.getElement());
       body.classList.add('hide-overflow');
 
-      filmDetails.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+      filmDetails.setEditClickHandler(() => {
         if (filmDetails !== null && body.contains(filmDetails.getElement())) {
           body.removeChild(filmDetails.getElement());
           body.classList.remove('hide-overflow');
