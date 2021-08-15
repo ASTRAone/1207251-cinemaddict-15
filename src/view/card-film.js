@@ -27,10 +27,22 @@ class FilmCard extends Abstract {
 
     this.data = data;
     this._element = null;
+
+    this._editClickHandler = this._editClickHandler.bind(this);
   }
 
   getTemplate() {
     return renderMoviesCard(this.data);
+  }
+
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick(evt);
+  }
+
+  setEditClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().addEventListener('click', this._editClickHandler);
   }
 }
 

@@ -36,7 +36,7 @@ const renderFilm = (container, element) => {
   const title = card.getElement().querySelector('.film-card__title');
   const comments = card.getElement().querySelector('.film-card__comments');
 
-  card.getElement().addEventListener('click', (e) => {
+  card.setEditClickHandler((e) => {
     if (e.target.contains(poster) || e.target.contains(title) || e.target.contains(comments)) {
       filmDetails = new FilmDetails(element);
       render(body, filmDetails.getElement());
