@@ -10,8 +10,6 @@ class FilmPresent {
   }
 
   init(element) {
-    this.element = element;
-
     const card = new FilmCard(element);
     const listContainer = this._container.querySelector('.films-list__container');
     const poster = card.getElement().querySelector('.film-card__poster');
@@ -30,7 +28,54 @@ class FilmPresent {
             this._body.classList.remove('hide-overflow');
           }
         });
+
+        this._filmDetails.setMarkAsFavorite(() => {
+          console.log(Object.assign(
+            {},
+            element,
+            element.userDetails.favorite = !element.userDetails.favorite,
+          ));
+        });
+
+        this._filmDetails.setAlreadyWatchlist(() => {
+          console.log(Object.assign(
+            {},
+            element,
+            element.userDetails.alreadyWatched = !element.userDetails.alreadyWatched,
+          ));
+        });
+
+        this._filmDetails.setMarkAsWatched(() => {
+          console.log(Object.assign(
+            {},
+            element,
+            element.userDetails.watchlist = !element.userDetails.watchlist,
+          ));
+        });
       }
+    });
+
+    card.setAddToWatchlist((e) => {
+      console.log(Object.assign(
+        {},
+        element,
+        element.userDetails.watchlist = !element.userDetails.watchlist,
+      ));
+    });
+
+    card.setMarkAsWatched((e) => {
+      console.log(Object.assign(
+        {},
+        element,
+        element.userDetails.alreadyWatched = !element.userDetails.alreadyWatched,
+      ));
+    });
+    card.setMarkAsFavorite((e) => {
+      console.log(Object.assign(
+        {},
+        element,
+        element.userDetails.favorite = !element.userDetails.favorite,
+      ));
     });
 
     render(listContainer, card.getElement());

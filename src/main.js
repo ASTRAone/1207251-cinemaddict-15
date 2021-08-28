@@ -1,11 +1,17 @@
 // eslint-disable no-console
 import Present from './present/present.js';
+import Menu from './view/menu.js';
 import {generateData} from './mock/data';
+import {render} from './utils';
 
 const data = generateData();
-new Present().init(data);
+const main = document.querySelector('.main');
+const menu = new Menu().getElement();
 
+render(main, menu);
 
+const present = new Present(main);
+present.init(data);
 // // import { renderShowMoreButton } from './view/show-more-button';
 // import SortCinema from './view/sort.js';
 // import RatingUser from './view/rating-user.js';

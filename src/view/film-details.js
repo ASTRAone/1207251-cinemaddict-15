@@ -131,6 +131,9 @@ class FilmDetails extends Abstract {
     this._element = null;
 
     this._editClickHandler = this._editClickHandler.bind(this);
+    this._addToWatchlist = this._addToWatchlist.bind(this);
+    this._markAsWatched = this._markAsWatched.bind(this);
+    this._markAsFavorite = this._markAsFavorite.bind(this);
   }
 
   getTemplate() {
@@ -142,9 +145,39 @@ class FilmDetails extends Abstract {
     this._callback.editClick(evt);
   }
 
+  _addToWatchlist(evt) {
+    evt.preventDefault();
+    this._callback.addWatchlist(evt);
+  }
+
+  _markAsWatched(evt) {
+    evt.preventDefault();
+    this._callback.markWatched(evt);
+  }
+
+  _markAsFavorite(evt) {
+    evt.preventDefault();
+    this._callback.markFavorite(evt);
+  }
+
   setEditClickHandler(callback) {
     this._callback.editClick = callback;
     this.getElement().querySelector('.film-details__close-btn').addEventListener('click', this._editClickHandler);
+  }
+
+  setMarkAsFavorite(callback) {
+    this._callback.markFavorite = callback;
+    this.getElement().querySelector('.film-details__control-button--favorite').addEventListener('click', this._markAsFavorite);
+  }
+
+  setAlreadyWatchlist(callback) {
+    this._callback.addWatchlist = callback;
+    this.getElement().querySelector('.film-details__control-button--watched').addEventListener('click', this._addToWatchlist);
+  }
+
+  setMarkAsWatched(callback) {
+    this._callback.markWatched = callback;
+    this.getElement().querySelector('.film-details__control-button--watchlist').addEventListener('click', this._markAsWatched);
   }
 }
 

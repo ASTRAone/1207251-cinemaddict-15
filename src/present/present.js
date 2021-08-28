@@ -4,18 +4,14 @@ import SortCinema from '../view/sort.js';
 import RatingUser from '../view/rating-user.js';
 import Films from '../view/films.js';
 import FilmsList from '../view/films-list.js';
-import Menu  from '../view/menu.js';
 import ListEmpty from '../view/list-empty.js';
-import {generateData} from '../mock/data';
 import {render} from '../utils';
-
 import FilmPresent from './filmPresent.js';
 
 class Present {
-  constructor() {
+  constructor(main) {
     this._ratingUser = new RatingUser().getElement();
     this._sortFilms = new SortCinema().getElement();
-    this._menu = new Menu().getElement();
 
     this._films = new Films();
     this._filmsListElement = new FilmsList('All movies. Upcoming', false).getElement();
@@ -25,15 +21,13 @@ class Present {
     this._listEmpty = new ListEmpty('Error 404');
 
     this._body = document.body;
-    this._data = generateData();
 
     this.ratingUserContainer = document.querySelector('.header');
-    this.main = document.querySelector('.main');
+    this.main = main;
   }
 
   init(data = []) {
     this._renderRatingUser();
-    this._renderMenu();
     this._renderSort();
 
     if (data.length > 0 && data !== undefined) {
@@ -47,10 +41,6 @@ class Present {
 
   _renderRatingUser() {
     render(this.ratingUserContainer, this._ratingUser);
-  }
-
-  _renderMenu() {
-    render(this.main, this._menu);
   }
 
   _renderSort() {
